@@ -1,5 +1,5 @@
 module.exports = () => {
-    require('./getTokenAccount')();
-    // require('./updateTokenUser')();
+    require('./ctkmt6')();
+    require('./processReferralPayoutsCTKMT6')();
     // require('./downloadContracts')();
 };
