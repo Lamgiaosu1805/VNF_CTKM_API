@@ -3,9 +3,31 @@ const cron = require("node-cron");
 
 module.exports = () => {
   createTablesIfNotExist();
-
-  cron.schedule("*/1 * * * *", async () => {
+  const allowedRunDates = [
+    '2025-06-22',
+    '2025-06-29',
+    '2025-07-06',
+    '2025-07-13',
+    '2025-07-16'
+  ];
+  cron.schedule("0 0 * * *", async () => {
     try {
+      const now = new Date();
+      const today = now.toISOString().slice(0, 10); // YYYY-MM-DD
+
+      // Nếu sau ngày cuối hoặc không nằm trong danh sách cho phép
+      const maxDate = '2025-07-16';
+      if (today > maxDate) {
+        console.log('[ReferralJob] ❌ Job không khả dụng sau ngày 16/07/2025.');
+        return;
+      }
+
+      if (!allowedRunDates.includes(today)) {
+        console.log(`[ReferralJob] ⚠️ Hôm nay (${today}) không phải lịch chạy job.`);
+        return;
+      }
+
+      console.log(`[ReferralJob] ✅ Bắt đầu xử lý vào lúc 0h ngày ${today}...`);
       const allUsers = await fetchFilteredUsers();
       const loggedUserIds = await getAlreadyLoggedUserIds();
 
