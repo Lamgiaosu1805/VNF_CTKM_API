@@ -12,7 +12,12 @@ module.exports = () => {
   ];
   cron.schedule("0 21 * * *", async () => {
     const now = new Date();
-    const today = now.toISOString().slice(0, 10); // YYYY-MM-DD
+    const today = new Intl.DateTimeFormat('sv-SE', {
+      timeZone: 'Asia/Ho_Chi_Minh',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(now);
 
     // Nếu sau ngày cuối hoặc không nằm trong danh sách cho phép
     const maxDate = '2025-07-16';
