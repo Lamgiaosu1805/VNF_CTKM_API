@@ -10,7 +10,7 @@ module.exports = () => {
     '2025-07-13',
     '2025-07-16'
   ];
-  cron.schedule("20 0 * * *", async () => {
+  cron.schedule("0 0 * * *", async () => {
     try {
       const now = new Date();
       const today = new Intl.DateTimeFormat('sv-SE', {
