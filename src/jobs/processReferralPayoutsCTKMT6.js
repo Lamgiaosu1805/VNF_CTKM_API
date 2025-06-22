@@ -10,7 +10,7 @@ module.exports = () => {
     '2025-07-13',
     '2025-07-16'
   ];
-  cron.schedule("30 23 * * *", async () => {
+  cron.schedule("0 21 * * *", async () => {
     const now = new Date();
     const today = new Intl.DateTimeFormat('sv-SE', {
       timeZone: 'Asia/Ho_Chi_Minh',
@@ -67,25 +67,25 @@ module.exports = () => {
             token: token || "Không có token"
           });
           try {
-            // const plusMoneyRes = await axios.put(`http://42.113.122.155:8888/api/v2/account/${reward.bank_account}`, {
-            //   "fluctuatedAmount": reward.reward_amount,
-            //   "plus": true,
-            //   "source": "VNFFITE_CAPITAL"
-            // }, {
-            //   headers: {
-            //     requestId: "1111",
-            //     Authorization: "Bearer " + authResSecond.data.data.accessToken
-            //   }
-            // })
-            if(true) {
-              // await markRewardAsSuccess(reward.id);
-              // console.log(`✅ Đã cập nhật trạng thái success cho reward ID: ${reward.id}`);
+            const plusMoneyRes = await axios.put(`http://42.113.122.155:8888/api/v2/account/${reward.bank_account}`, {
+              "fluctuatedAmount": reward.reward_amount,
+              "plus": true,
+              "source": "VNFFITE_CAPITAL"
+            }, {
+              headers: {
+                requestId: "1111",
+                Authorization: "Bearer " + authResSecond.data.data.accessToken
+              }
+            })
+            if(plusMoneyRes?.data?.result?.isOK == true) {
+              await markRewardAsSuccess(reward.id);
+              console.log(`✅ Đã cập nhật trạng thái success cho reward ID: ${reward.id}`);
               try {
                 await axios.post('https://service.tikluy.com.vn/cms/notification/create-export', {
                   "type": 1,
                   "title": "Trả thưởng CTKM",
                   "content1": `Bạn đã được cộng ${formatMoney(reward.reward_amount)} VNĐ qua chương trình giới thiệu bạn bè của TIKLUY. Thời gian chương trình: 15/06/2025 – 15/07/2025`,
-                  "content2": `Số dư TK: ${formatMoney(plusMoneyRes.data.data)} VNĐ`,
+                  "content2": `Số dư TK: ${formatMoney(plusMoneyRes?.data?.data)} VNĐ`,
                   "amount": reward.reward_amount,
                   "userId": reward.user_id,
                   "category": "IN"
@@ -127,7 +127,7 @@ async function getPendingRewards() {
   const sql = `
     SELECT id, user_id, full_name, bank_account, reward_amount, reward_type
     FROM referral_reward_logs
-    WHERE status = 'success'
+    WHERE status = 'pending'
   `;
   return new Promise((resolve, reject) => {
     db.query(sql, (err, results) => {
