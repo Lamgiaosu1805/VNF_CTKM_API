@@ -5,12 +5,13 @@ module.exports = () => {
   createTablesIfNotExist();
   const allowedRunDates = [
     '2025-06-22',
+    '2025-06-24',
     '2025-06-29',
     '2025-07-06',
     '2025-07-13',
     '2025-07-16'
   ];
-  cron.schedule("0 0 * * *", async () => {
+  cron.schedule("30 8 * * *", async () => {
     try {
       const now = new Date();
       const today = new Intl.DateTimeFormat('sv-SE', {
