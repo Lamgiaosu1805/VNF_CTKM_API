@@ -6,9 +6,7 @@ module.exports = () => {
   const allowedRunDates = [
     '2025-06-22',
     '2025-06-29',
-    '2025-07-06',
-    '2025-07-13',
-    '2025-07-16'
+    '2025-07-01',
   ];
   cron.schedule("0 0 * * *", async () => {
     try {
