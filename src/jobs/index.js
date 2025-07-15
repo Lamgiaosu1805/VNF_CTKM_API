@@ -1,4 +1,6 @@
 module.exports = () => {
-    require('./ctkmt6')();
-    require('./processReferralPayoutsCTKMT6')();
+    //CTKM tháng 6
+    // require('./ctkmt6')();
+    // require('./processReferralPayoutsCTKMT6')();
+    require('./julyReferralJob')();
 };
