@@ -114,13 +114,13 @@ module.exports = () => {
           );
 
           // Lấy token thiết bị để gửi push
-          const [tokenRows] = await db.promise().query(
+        const [tokenRows] = await db.promise().query(
             `SELECT TOKEN FROM tbl_user_device 
-            WHERE USER_ID = '4e5ee53c-94db-4e24-834f-fa6286c36747' AND IS_DELETED = 'N' 
-            LIMIT 1;`,
+             WHERE USER_ID = ? AND IS_DELETED = 'N' 
+             LIMIT 1;`,
             [item.USER_ID]
-          );
-          const token = tokenRows[0]?.TOKEN;
+        );
+        const token = tokenRows[0]?.TOKEN;
 
           if (token) {
             try {
