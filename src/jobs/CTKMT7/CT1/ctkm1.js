@@ -4,7 +4,7 @@ const db = require("../../../config/connectMySQL");
 const axios = require("axios");
 
 module.exports = () => {
-  cron.schedule("*/10 * * * * *", async () => {
+  cron.schedule('*/10 * * * *', async () => {
     console.log("[CRON] Bắt đầu kiểm tra ưu đãi tích lũy...");
 
     const startDate = moment("2025-07-18");
