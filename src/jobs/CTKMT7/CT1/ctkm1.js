@@ -81,10 +81,13 @@ module.exports = () => {
         else if (period >= 24 && period <= 36) bonusRate = 1.5;
 
         if (bonusRate > 0) {
+          const start = moment(item.START_DATE);
+          const end = moment(item.END_DATE);
           const newRate = parseFloat((interest + bonusRate).toFixed(2));
           const amount = parseFloat(item.AMOUNT);
           const oldProfit = item.TOTAL_PROFIT
-          const newProfit = Math.floor((amount * newRate * period) / 12 / 100);
+          const days = end.diff(start, 'days');
+          const newProfit = Math.floor((amount * (newRate / 100) / 365) * days * 0.95);
 
           // Insert log (KHÔNG còn CREATED_DATE)
           await db.promise().query(
