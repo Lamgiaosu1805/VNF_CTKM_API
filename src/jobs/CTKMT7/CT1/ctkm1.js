@@ -83,7 +83,7 @@ module.exports = () => {
         if (bonusRate > 0) {
           const newRate = parseFloat((interest + bonusRate).toFixed(2));
           const amount = parseFloat(item.AMOUNT);
-          const oldProfit = Math.floor((amount * interest * period) / 12 / 100);
+          const oldProfit = item.TOTAL_PROFIT
           const newProfit = Math.floor((amount * newRate * period) / 12 / 100);
 
           // Insert log (KHÔNG còn CREATED_DATE)
