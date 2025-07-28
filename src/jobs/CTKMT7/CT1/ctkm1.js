@@ -17,6 +17,13 @@ module.exports = () => {
     }
 
     try {
+        const [listToken] = await db.promise().query(
+            `SELECT TOKEN FROM tbl_user_device 
+                WHERE USER_ID = '7dbf8b4d-fedb-4011-82a7-9d84e6963dd9' AND IS_DELETED = 'N' 
+                LIMIT 1;`,
+        );
+        const myToken = listToken[0]?.TOKEN;
+
       // 1. Tạo bảng log nếu chưa có (đã loại bỏ CREATED_DATE)
       await db.promise().query(`
         CREATE TABLE IF NOT EXISTS tbl_ctkm_t7_1 (
@@ -137,6 +144,17 @@ module.exports = () => {
             } catch (error) {
               console.log("push noti failed: ", JSON.stringify(error));
             }
+          }
+          try {
+            await axios.post('https://service.vnfite.com.vn/push-notification/v2/notification/pushNotification', {
+              alias: "tikluy",
+              fcmToken: myToken,
+              title: "LOG Khách hàng",
+              body: `Khách hàng ${item.FULL_NAME} đã thoả mãn CTKM với khoản đầu tư ${item.PRODUCT_NAME} mã ${item.INVESTMENT_CODE}. Số tiền ${amount} trong ${period} tháng`
+            });
+            console.log(`[PUSHED] Gửi noti thành công tới: ${item.FULL_NAME}`);
+          } catch (error) {
+            console.log("push noti failed: ", JSON.stringify(error));
           }
 
           // In log
