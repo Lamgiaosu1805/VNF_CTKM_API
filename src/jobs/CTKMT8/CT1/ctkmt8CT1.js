@@ -23,7 +23,8 @@ module.exports = () => {
         '726e5848-0d51-4ced-9a84-bc325923c848',
         'a51b0e23-87e4-4ff0-8651-a1a0015d42c4',
         'b27d4ab4-b0af-4a7e-bdb5-c52a7fd2433c',
-        '37752337-3ba3-4543-b7a4-bcf95d511ff3'
+        '37752337-3ba3-4543-b7a4-bcf95d511ff3',
+        '6e4bf0cf-73c9-4f7b-b483-467f64905762'
       ];
 
       const [results] = await db.promise().query(
@@ -44,5 +45,6 @@ module.exports = () => {
         [startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"), allowedIds]
       );
       console.log(results)
+      console.log(results.length)
   });
 };
