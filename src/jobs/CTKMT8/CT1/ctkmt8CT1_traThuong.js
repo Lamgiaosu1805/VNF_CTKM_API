@@ -4,7 +4,7 @@ const db = require("../../../config/connectMySQL");
 const axios = require("axios");
 
 module.exports = () => {
-  cron.schedule('5-59/10 * * * *', async () => { // Test: chạy sau Job 1 khoảng 5 giây
+  cron.schedule('5-59/10 * * * * *', async () => { // Test: chạy sau Job 1 khoảng 5 giây
     console.log("[CRON] Bắt đầu trả thưởng CTKM...");
 
     const startDate = moment("2025-08-01");
@@ -73,7 +73,7 @@ module.exports = () => {
                WHERE ID = ?`,
               [row.ID]
             );
-            if (row.PRODUCT_ID == '37752337-3ba3-4543-b7a4-bcf95d511ff3' || row.PRODUCT_ID == 'b27d4ab4-b0af-4a7e-bdb5-c52a7fd2433c') {
+            if (row.PRODUCT_ID == '37752337-3ba3-4543-b7a4-bcf95d511ff3' || row.PRODUCT_ID == '6e4bf0cf-73c9-4f7b-b483-467f64905762') {
                 const plusMoneyRes = await axios.put(`http://${process.env.IP_SERVER}:${process.env.PORT_ACCOUNT}/api/v2/account/${bankAccount}`, {
                     "fluctuatedAmount": row.NEW_TOTAL_PROFIT - row.OLD_TOTAL_PROFIT,
                     "plus": true,
@@ -107,7 +107,7 @@ module.exports = () => {
                   );
 
                   // Nếu đúng PRODUCT_ID → gửi thêm thông báo "Trả thêm tiền lãi từ CTKM"
-                  if (row.PRODUCT_ID == '37752337-3ba3-4543-b7a4-bcf95d511ff3' || row.PRODUCT_ID == 'b27d4ab4-b0af-4a7e-bdb5-c52a7fd2433c') {
+                  if (row.PRODUCT_ID == '37752337-3ba3-4543-b7a4-bcf95d511ff3' || row.PRODUCT_ID == '6e4bf0cf-73c9-4f7b-b483-467f64905762') {
                     await axios.post(
                       'https://service.vnfite.com.vn/push-notification/v2/notification/pushNotification',
                       {
