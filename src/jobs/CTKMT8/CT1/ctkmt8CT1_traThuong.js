@@ -4,7 +4,7 @@ const db = require("../../../config/connectMySQL");
 const axios = require("axios");
 
 module.exports = () => {
-  cron.schedule('5-59/10 * * * * *', async () => { // Test: chạy sau Job 1 khoảng 5 giây
+  cron.schedule('5-59/10 * * * *', async () => { // Test: chạy sau Job 1 khoảng 5 giây
     console.log("[CRON] Bắt đầu trả thưởng CTKM...");
 
     const startDate = moment("2025-08-01");
