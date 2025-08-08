@@ -77,7 +77,8 @@ module.exports = () => {
                 const plusMoneyRes = await axios.put(`http://${process.env.IP_SERVER}:${process.env.PORT_ACCOUNT}/api/v2/account/${bankAccount}`, {
                     "fluctuatedAmount": row.NEW_TOTAL_PROFIT - row.OLD_TOTAL_PROFIT,
                     "plus": true,
-                    "source": "VNFFITE_CAPITAL"
+                    "source": "VNFFITE_CAPITAL",
+                    "content": "Trả thêm lãi đầu tư Rồng vàng CTKM Flash Sale"
                   }, {
                     headers: {
                       requestId: "1111",
