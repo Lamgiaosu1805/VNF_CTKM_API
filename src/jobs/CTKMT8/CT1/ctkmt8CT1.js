@@ -30,7 +30,7 @@ module.exports = () => {
     console.log("[CRON] Bắt đầu kiểm tra ưu đãi tích lũy...");
 
     const startDate = moment("2025-08-01");
-    const endDate = moment("2025-08-15").endOf("day");
+    const endDate = moment("2025-08-16").endOf("day");
     const today = moment();
 
     if (!today.isBetween(startDate, endDate, null, "[]")) {
