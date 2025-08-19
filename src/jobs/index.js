@@ -5,10 +5,10 @@ module.exports = () => {
     // require('./julyReferralJob')();
     
     //CTKM THANG 7
-    // require('./CTKMT7/CT1/ctkm1')()
+    require('./CTKMT7/CT1/ctkm1')()
 
     //CTKM THANG 8
     //--- CT FLASH SALE
-    require('./CTKMT8/CT1/ctkmt8CT1')();
-    require('./CTKMT8/CT1/ctkmt8CT1_traThuong')();
+    // require('./CTKMT8/CT1/ctkmt8CT1')();
+    // require('./CTKMT8/CT1/ctkmt8CT1_traThuong')();
 };

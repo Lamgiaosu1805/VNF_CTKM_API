@@ -64,6 +64,10 @@ module.exports = () => {
            AND t.INTEREST_RATE_UNIT = 1
            AND t.START_DATE BETWEEN ? AND ?
            AND t.INVESTMENT_HOLDING_PRODUCT_ID IN (?)
+           AND t.INVESTMENT_CODE NOT IN (
+              SELECT INVESTMENT_CODE 
+              FROM ctkm_flash_sale_t8
+          )
         `,
         [startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"), allowedIds]
       );
