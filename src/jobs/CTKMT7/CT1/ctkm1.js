@@ -86,10 +86,13 @@ module.exports = () => {
         let bonusRate = 0;
 
         if (period >= 1 && period <= 2) bonusRate = 0.2;
-        else if (period >= 3 && period <= 6) bonusRate = 0.5;
-        else if (period >= 9 && period <= 12) bonusRate = 1.0;
-        else if (period >= 13 && period <= 18) bonusRate = 1.25;
-        else if (period >= 24 && period <= 36) bonusRate = 1.5;
+        else {
+          return;
+        }
+        // else if (period >= 3 && period <= 6) bonusRate = 0.5;
+        // else if (period >= 9 && period <= 12) bonusRate = 1.0;
+        // else if (period >= 13 && period <= 18) bonusRate = 1.25;
+        // else if (period >= 24 && period <= 36) bonusRate = 1.5;
 
         if (bonusRate > 0) {
           const start = moment(item.START_DATE);
