@@ -11,4 +11,7 @@ module.exports = () => {
     //--- CT FLASH SALE
     // require('./CTKMT8/CT1/ctkmt8CT1')();
     // require('./CTKMT8/CT1/ctkmt8CT1_traThuong')();
+
+    //CTKM2
+    require('./CTKMT8/CT2/ctkm2')()
 };
