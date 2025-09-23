@@ -46,10 +46,10 @@ module.exports = () => {
     const endDate = moment("2025-09-21").endOf("day");
     const today = moment();
 
-    // if (!today.isBetween(startDate, endDate, null, "[]")) {
-    //   console.log("[CRON] Không nằm trong thời gian diễn ra chương trình.");
-    //   return;
-    // }
+    if (!today.isBetween(startDate, endDate, null, "[]")) {
+      console.log("[CRON] Không nằm trong thời gian diễn ra chương trình.");
+      return;
+    }
 
     await createTableIfNotExists();
 
