@@ -43,7 +43,7 @@ module.exports = () => {
   cron.schedule("*/10 * * * *", async () => {
     console.log("STARTING...");
     const startDate = moment("2025-08-20");
-    const endDate = moment("2025-09-20").endOf("day");
+    const endDate = moment("2025-09-21").endOf("day");
     const today = moment();
 
     if (!today.isBetween(startDate, endDate, null, "[]")) {
