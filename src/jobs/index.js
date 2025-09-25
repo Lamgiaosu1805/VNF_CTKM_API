@@ -5,7 +5,7 @@ module.exports = () => {
     // require('./julyReferralJob')();
     
     //CTKM THANG 7
-    require('./CTKMT7/CT1/ctkm1')()
+    // require('./CTKMT7/CT1/ctkm1')()
 
     //CTKM THANG 8
     //--- CT FLASH SALE
@@ -17,4 +17,7 @@ module.exports = () => {
 
     //CTKM3 20/9/2025 - 30/9/2025
     // require('./CTKMT8/CT3/ctkm3')()
+
+    //CTKM4 20/09/2025 đến hết ngày 31/10/2025.
+    // require('./CTKMT8/CT4/ctkm4')()
 };
