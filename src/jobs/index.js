@@ -19,5 +19,6 @@ module.exports = () => {
     // require('./CTKMT8/CT3/ctkm3')()
 
     //CTKM4 20/09/2025 đến hết ngày 31/10/2025.
-    // require('./CTKMT8/CT4/ctkm4')()
+    require('./CTKMT8/CT4/ctkm4')()
+    require('./CTKMT8/CT4/payReward')() // trả thưởng
 };
