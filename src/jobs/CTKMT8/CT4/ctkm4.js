@@ -141,29 +141,29 @@ async function processInvestmentMissions(user) {
         { missionId: 6, minAmount: 5000000, minTerm: 9, reward: 45000 },
     ];
 
+    const investments = await getAvailableInvestments(user.ID);
+
     for (const mission of rewards) {
+        // Nếu user đã có reward mốc này thì bỏ qua
         if (await hasReward(user.ID, mission.missionId)) continue;
 
-        if (!(await hasReward(user.ID, mission.missionId - 1))) {
-            continue;
-        }
-
-        const investments = await getAvailableInvestments(user.ID);
-
+        // Tìm 1 khoản đầu tư thoả điều kiện mốc
         const inv = investments.find(
             (i) => i.amount >= mission.minAmount && i.term >= mission.minTerm
         );
 
         if (inv) {
+            // Thêm reward
             await insertReward(user.ID, mission.missionId, mission.reward);
 
+            // Log lại khoản đầu tư đã dùng cho mốc này
             await db.promise().query(
                 "INSERT INTO tbl_promo_investment_log (USER_ID, INVEST_ID, MISSION_ID) VALUES (?, ?, ?)",
                 [user.ID, inv.id, mission.missionId]
             );
 
             console.log(`✅ User ${user.ID} đạt mốc ${mission.missionId} với investment ${inv.id}`);
-            return; // mỗi lần job chỉ được 1 mốc đầu tư
+            return; // mỗi lần job chỉ cho ăn 1 mốc
         }
     }
 }

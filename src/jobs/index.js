@@ -13,7 +13,7 @@ module.exports = () => {
     // require('./CTKMT8/CT1/ctkmt8CT1_traThuong')();
 
     //CTKM2
-    require('./CTKMT8/CT2/ctkm2')()
+    // require('./CTKMT8/CT2/ctkm2')()
 
     //CTKM3 20/9/2025 - 30/9/2025
     // require('./CTKMT8/CT3/ctkm3')()
