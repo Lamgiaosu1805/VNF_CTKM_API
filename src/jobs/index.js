@@ -21,4 +21,8 @@ module.exports = () => {
     //CTKM4 20/09/2025 đến hết ngày 31/10/2025.
     require('./CTKMT8/CT4/ctkm4')()
     require('./CTKMT8/CT4/payReward')() // trả thưởng
+
+    //CTKM5 15/10 => hết 22/10 TIKLUY cùng Nàng – Gửi ngàn yêu thương
+    require('./CTKMT8/CT5/ctkm5')()
+    
 };
