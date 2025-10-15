@@ -95,100 +95,100 @@ module.exports = () => {
                AND t.INVESTMENT_HOLDING_PRODUCT_ID IN (?)
             `,
             [PROGRAM_START.format("YYYY-MM-DD HH:mm:ss"), PROGRAM_END.format("YYYY-MM-DD HH:mm:ss"), allowedIds]
-          );
+        );
 
-          for (const row of results) {
+        for (const row of results) {
             const { reward } = calculateReward(row.AMOUNT);
-      
+
             if (reward > 0) {
-              // check nếu đã tồn tại
-              const [exist] = await db
-                .promise()
-                .query(
-                  `SELECT 1 FROM ctkm_5 WHERE INVESTMENT_CODE = ? LIMIT 1`,
-                  [row.INVESTMENT_CODE]
-                );
-      
-              if (exist.length > 0) {
-                console.log(`[SKIP] ${row.INVESTMENT_CODE} đã được insert trước đó.`);
-                continue;
-              }
-      
-              // insert mới
-              await db.promise().query(
-                `INSERT INTO ctkm_5 
+                // check nếu đã tồn tại
+                const [exist] = await db
+                    .promise()
+                    .query(
+                        `SELECT 1 FROM ctkm_5 WHERE INVESTMENT_CODE = ? LIMIT 1`,
+                        [row.INVESTMENT_CODE]
+                    );
+
+                if (exist.length > 0) {
+                    console.log(`[SKIP] ${row.INVESTMENT_CODE} đã được insert trước đó.`);
+                    continue;
+                }
+
+                // insert mới
+                await db.promise().query(
+                    `INSERT INTO ctkm_5 
                 (INVESTMENT_CODE, USER_ID, FULL_NAME, PRODUCT_ID, PRODUCT_NAME, AMOUNT, START_DATE, REWARD_PERCENT, REWARD_MONEY)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                [
-                  row.INVESTMENT_CODE,
-                  row.USER_ID,
-                  row.FULL_NAME,
-                  row.INVESTMENT_HOLDING_PRODUCT_ID,
-                  row.PRODUCT_NAME,
-                  row.AMOUNT,
-                  row.START_DATE,
-                  0.25,
-                  reward,
-                ]
-              );
-              console.log(
-                `[SAVE] ${row.USER_ID} - ${row.AMOUNT} - ${row.INTEREST_RATE_PERIOD} tháng => Thưởng: ${reward}`
-              );
-              // 🔹 Lấy token push notification & số tài khoản nhận thưởng
-            //   const [userInfo] = await db.promise().query(
-            //       `SELECT 
-            //           u.BANK_ACCOUNT_VNFITE,
-            //           d.TOKEN
-            //        FROM tbl_user_utility u
-            //        LEFT JOIN tbl_user_device d 
-            //          ON u.USER_ID = d.USER_ID AND d.IS_DELETED = 'N'
-            //        WHERE u.USER_ID = ?
-            //        LIMIT 1`,
-            //       [row.USER_ID]
-            //     );
-      
-            //   const token = userInfo.length > 0 ? userInfo[0].TOKEN : null;
-            //   const bankAccount = userInfo.length > 0 ? userInfo[0].BANK_ACCOUNT_VNFITE : null;
-            //   try {
-            //       const plusMoneyRes = await axios.put(`http://${process.env.IP_SERVER}:${process.env.PORT_ACCOUNT}/api/v2/account/${bankAccount}`, {
-            //           "fluctuatedAmount": reward,
-            //           "plus": true,
-            //           "source": "VNFFITE_CAPITAL",
-            //           "content": `Ưu đãi cộng tiền về tài khoản CTKM TIKLUY THÔNG MINH RINH ƯU ĐÃI KHỦNG của khoản đầu tư ${row.INVESTMENT_CODE}`
-            //         }, {
-            //           headers: {
-            //             requestId: "ctkm_t8_ct2",
-            //             Authorization: "Bearer " + authResSecond.data.data.accessToken
-            //           }
-            //         })
-            //       if(plusMoneyRes?.data?.result?.isOK != true) {
-            //           console.log("Cộng tiền Fail: ", plusMoneyRes?.data)
-            //       }
-            //       else {
-            //           console.log(`Đã trả tiền ưu đãi về tài khoản ${bankAccount}`)
-            //       }
-            //   } catch (err) {
-            //       console.error(`[API] Lỗi khi cộng tiền cho ${row.USER_ID}:`, err.message);
-            //   }
-            //   if(token) {
-            //       try {
-            //           await axios.post(
-            //               'https://service.vnfite.com.vn/push-notification/v2/notification/pushNotification',
-            //               {
-            //                 alias: "tikluy",
-            //                 fcmToken: token,
-            //                 title: "TIKLUY THÔNG MINH - RINH ƯU ĐÃI KHỦNG",
-            //                 body: `Chúc mừng bạn đã nhận được ưu đãi ${formatMoney(reward)} VNĐ vào tài khoản TIKLUY\nKhoản đầu tư: ${row.PRODUCT_NAME}\nMã đầu tư: ${row.INVESTMENT_CODE}\nCảm ơn Bạn đã tin tưởng đồng hành cùng TIKLUY !`
-            //               }
-            //           );
-            //           console.log(`[PUSHED] Gửi noti thành công tới: ${row.FULL_NAME}`);
-            //       } catch (error) {
-            //           console.log("push noti failed: ", JSON.stringify(error));
-            //       }
-            //   } else {
-            //       console.log(`[PUSH] Không tìm thấy token cho ${row.FULL_NAME}`);
-            //   }
+                    [
+                        row.INVESTMENT_CODE,
+                        row.USER_ID,
+                        row.FULL_NAME,
+                        row.INVESTMENT_HOLDING_PRODUCT_ID,
+                        row.PRODUCT_NAME,
+                        row.AMOUNT,
+                        row.START_DATE,
+                        0.25,
+                        reward,
+                    ]
+                );
+                console.log(
+                    `[SAVE] ${row.USER_ID} - ${row.AMOUNT} - ${row.INTEREST_RATE_PERIOD} tháng => Thưởng: ${reward}`
+                );
+                // 🔹 Lấy token push notification & số tài khoản nhận thưởng
+                //   const [userInfo] = await db.promise().query(
+                //       `SELECT 
+                //           u.BANK_ACCOUNT_VNFITE,
+                //           d.TOKEN
+                //        FROM tbl_user_utility u
+                //        LEFT JOIN tbl_user_device d 
+                //          ON u.USER_ID = d.USER_ID AND d.IS_DELETED = 'N'
+                //        WHERE u.USER_ID = ?
+                //        LIMIT 1`,
+                //       [row.USER_ID]
+                //     );
+
+                //   const token = userInfo.length > 0 ? userInfo[0].TOKEN : null;
+                //   const bankAccount = userInfo.length > 0 ? userInfo[0].BANK_ACCOUNT_VNFITE : null;
+                //   try {
+                //       const plusMoneyRes = await axios.put(`http://${process.env.IP_SERVER}:${process.env.PORT_ACCOUNT}/api/v2/account/${bankAccount}`, {
+                //           "fluctuatedAmount": reward,
+                //           "plus": true,
+                //           "source": "VNFFITE_CAPITAL",
+                //           "content": `Ưu đãi cộng tiền về tài khoản CTKM TIKLUY THÔNG MINH RINH ƯU ĐÃI KHỦNG của khoản đầu tư ${row.INVESTMENT_CODE}`
+                //         }, {
+                //           headers: {
+                //             requestId: "ctkm_t8_ct2",
+                //             Authorization: "Bearer " + authResSecond.data.data.accessToken
+                //           }
+                //         })
+                //       if(plusMoneyRes?.data?.result?.isOK != true) {
+                //           console.log("Cộng tiền Fail: ", plusMoneyRes?.data)
+                //       }
+                //       else {
+                //           console.log(`Đã trả tiền ưu đãi về tài khoản ${bankAccount}`)
+                //       }
+                //   } catch (err) {
+                //       console.error(`[API] Lỗi khi cộng tiền cho ${row.USER_ID}:`, err.message);
+                //   }
+                //   if(token) {
+                //       try {
+                //           await axios.post(
+                //               'https://service.vnfite.com.vn/push-notification/v2/notification/pushNotification',
+                //               {
+                //                 alias: "tikluy",
+                //                 fcmToken: token,
+                //                 title: "TIKLUY THÔNG MINH - RINH ƯU ĐÃI KHỦNG",
+                //                 body: `Chúc mừng bạn đã nhận được ưu đãi ${formatMoney(reward)} VNĐ vào tài khoản TIKLUY\nKhoản đầu tư: ${row.PRODUCT_NAME}\nMã đầu tư: ${row.INVESTMENT_CODE}\nCảm ơn Bạn đã tin tưởng đồng hành cùng TIKLUY !`
+                //               }
+                //           );
+                //           console.log(`[PUSHED] Gửi noti thành công tới: ${row.FULL_NAME}`);
+                //       } catch (error) {
+                //           console.log("push noti failed: ", JSON.stringify(error));
+                //       }
+                //   } else {
+                //       console.log(`[PUSH] Không tìm thấy token cho ${row.FULL_NAME}`);
+                //   }
             }
-          }
+        }
     });
 };
