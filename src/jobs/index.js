@@ -24,5 +24,5 @@ module.exports = () => {
 
     //CTKM5 15/10 => hết 22/10 TIKLUY cùng Nàng – Gửi ngàn yêu thương
     require('./CTKMT8/CT5/ctkm5')()
-    
+    require('./CTKMT8/CT5/payRewardCTKM5')()
 };
