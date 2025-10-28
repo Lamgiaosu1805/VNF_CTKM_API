@@ -23,6 +23,9 @@ module.exports = () => {
     require('./CTKMT8/CT4/payReward')() // trả thưởng
 
     //CTKM5 15/10 => hết 22/10 TIKLUY cùng Nàng – Gửi ngàn yêu thương
-    require('./CTKMT8/CT5/ctkm5')()
-    require('./CTKMT8/CT5/payRewardCTKM5')()
+    // require('./CTKMT8/CT5/ctkm5')()
+    // require('./CTKMT8/CT5/payRewardCTKM5')()
+
+    //CTKM6 24/10 => hết 24/11 AN TÂM TIKLUY – SINH LỜI ĐỈNH CAO
+    require('./CTKM6/ctkm6')()
 };
