@@ -3,7 +3,7 @@ module.exports = () => {
     // require('./ctkmt6')();
     // require('./processReferralPayoutsCTKMT6')();
     // require('./julyReferralJob')();
-    
+
     //CTKM THANG 7
     // require('./CTKMT7/CT1/ctkm1')()
 
@@ -28,4 +28,7 @@ module.exports = () => {
 
     //CTKM6 24/10 => hết 24/11 AN TÂM TIKLUY – SINH LỜI ĐỈNH CAO
     require('./CTKM6/ctkm6')()
+
+    //CTKM6 20/11 => hết 27/11 FLASH SALE 20/11 – MAY MẮN NHÂN ĐÔI CÙNG TIKLUY
+    require('./CTKM7/ctkm7')()
 };
