@@ -76,7 +76,7 @@ module.exports = () => {
             [PROGRAM_START.format("YYYY-MM-DD HH:mm:ss"), PROGRAM_END.format("YYYY-MM-DD HH:mm:ss"), allowedIds]
         );
         for (const row of results) {
-            const rewardData = 1000000; // Thưởng cố định 100,000 VND
+            const rewardData = 100000; // Thưởng cố định 100,000 VND
             try {
                 // Kiểm tra xem đã tồn tại trong bảng ctkm_7 chưa
                 const [existing] = await db.promise().query(
