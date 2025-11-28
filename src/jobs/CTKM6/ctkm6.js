@@ -5,8 +5,8 @@ const db = require("../../config/connectMySQL");
 const axios = require("axios");
 
 
-const PROGRAM_START = moment.tz("2025-10-24 00:00:00", "Asia/Ho_Chi_Minh");
-const PROGRAM_END = moment.tz("2025-11-24 23:59:59", "Asia/Ho_Chi_Minh");
+const PROGRAM_START = moment.tz("2025-11-28 00:00:00", "Asia/Ho_Chi_Minh");
+const PROGRAM_END = moment.tz("2025-12-23 23:59:59", "Asia/Ho_Chi_Minh");
 
 module.exports = () => {
     const createTableIfNotExists = async () => {

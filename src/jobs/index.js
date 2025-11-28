@@ -26,7 +26,7 @@ module.exports = () => {
     // require('./CTKMT8/CT5/ctkm5')()
     // require('./CTKMT8/CT5/payRewardCTKM5')()
 
-    //CTKM6 24/10 => hết 24/11 AN TÂM TIKLUY – SINH LỜI ĐỈNH CAO
+    //CTKM6 24/10 => hết 24/11 AN TÂM TIKLUY – SINH LỜI ĐỈNH CAO => GIA HẠN từ 28/11 => 23/12/2025
     require('./CTKM6/ctkm6')()
 
     //CTKM6 20/11 => hết 27/11 FLASH SALE 20/11 – MAY MẮN NHÂN ĐÔI CÙNG TIKLUY
