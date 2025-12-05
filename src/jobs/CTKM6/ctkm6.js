@@ -38,7 +38,7 @@ module.exports = () => {
         if (period >= 1 && period < 3) {
             percent = 0.01
         }
-        else if (period >= 3 && period < 6) {
+        else if (period >= 3 && period <= 6) {
             percent = 0.015;
         } else if (period >= 9) {
             percent = 0.02;
