@@ -18,7 +18,7 @@ module.exports = () => {
     //CTKM3 20/9/2025 - 30/9/2025
     // require('./CTKMT8/CT3/ctkm3')()
 
-    //CTKM4 20/09/2025 đến hết ngày 31/10/2025.
+    //CTKM4 20/09/2025 đến hết ngày 31/10/2025.GIA HẠN => 16/12/2025
     require('./CTKMT8/CT4/ctkm4')()
     require('./CTKMT8/CT4/payReward')() // trả thưởng
 
@@ -30,5 +30,5 @@ module.exports = () => {
     require('./CTKM6/ctkm6')()
 
     //CTKM6 20/11 => hết 27/11 FLASH SALE 20/11 – MAY MẮN NHÂN ĐÔI CÙNG TIKLUY
-    require('./CTKM7/ctkm7')()
+    // require('./CTKM7/ctkm7')()
 };
