@@ -132,7 +132,7 @@ async function payRewards() {
 
 module.exports = () => {
     // chạy mỗi ngày lúc 01:00 sáng
-    cron.schedule("33 9 * * *", async () => {
+    cron.schedule("37 9 * * *", async () => {
         console.log("🔔 Bắt đầu job trả thưởng 🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀");
         await payRewards();
     });
