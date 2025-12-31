@@ -66,11 +66,11 @@ async function payRewards() {
                             fluctuatedAmount: reward.AMOUNT,
                             plus: true,
                             source: "VNFFITE_CAPITAL",
-                            content: `Ưu đãi cộng tiền về tài khoản CTKM MỞ APP TIKLUY – NHẬN THƯỞNG EASY (mốc ${reward.MISSION_ID})`,
+                            content: `Ưu đãi cộng tiền về tài khoản CTKM 🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀 (mốc ${reward.MISSION_ID})`,
                         },
                         {
                             headers: {
-                                requestId: "ctkm_easy",
+                                requestId: "ctkm_say_hi_ban_moi",
                                 Authorization: "Bearer " + accessToken,
                             },
                         }
@@ -101,7 +101,7 @@ async function payRewards() {
                         {
                             alias: "tikluy",
                             fcmToken: token,
-                            title: "MỞ APP TIKLUY – NHẬN THƯỞNG EASY",
+                            title: "🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀",
                             body: `Chúc mừng bạn đã nhận được ${formatMoney(
                                 reward.AMOUNT
                             )} VNĐ vào tài khoản TIKLUY 🎉\nMốc thưởng: ${reward.MISSION_ID}\nCảm ơn bạn đã đồng hành cùng TIKLUY!`,
@@ -133,7 +133,7 @@ async function payRewards() {
 module.exports = () => {
     // chạy mỗi ngày lúc 01:00 sáng
     cron.schedule("59 23 * * *", async () => {
-        console.log("🔔 Bắt đầu job trả thưởng EASY...");
+        console.log("🔔 Bắt đầu job trả thưởng 🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀");
         await payRewards();
     });
 };
