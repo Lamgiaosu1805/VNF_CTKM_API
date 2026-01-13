@@ -153,7 +153,7 @@ module.exports = () => {
          AND t.AMOUNT >= 10000000
          AND t.STATUS = 0
          AND t.INTEREST_RATE_UNIT = 1
-         AND t.INTEREST_RATE_PERIOD >= 1
+         AND t.INTEREST_RATE_PERIOD >= 3
          AND t.START_DATE BETWEEN ? AND ?
          AND t.INVESTMENT_HOLDING_PRODUCT_ID IN (?)
       `,
