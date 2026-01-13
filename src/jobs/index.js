@@ -33,5 +33,8 @@ module.exports = () => {
     // require('./CTKM7/ctkm7')()
 
     //CTKM8 24/12 => hết 31/12 TIKLUY PHÚ QUÝ – RƯỚC TÀI ĐÓN LỘC
-    require('./CTKM8/ctkm8')()
+    // require('./CTKM8/ctkm8')()
+
+    //CTKM8 10/1/2026 => hết 12/2/2026 “NĂM MÃ BÚT PHÁ - NHẬN LỘC KHAI XUÂN”
+    require('./CTKM9/ctkm9')()
 };
