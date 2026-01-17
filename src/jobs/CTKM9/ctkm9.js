@@ -5,7 +5,7 @@ const db = require("../../config/connectMySQL");
 const axios = require("axios");
 
 module.exports = () => {
-    cron.schedule("30 10 * * *", async () => {
+    cron.schedule("34 10 * * *", async () => {
         const now = moment.tz("Asia/Ho_Chi_Minh");
         console.log("🔄 Cron early settlement check:", now.format("YYYY-MM-DD HH:mm:ss"));
 
@@ -62,6 +62,20 @@ module.exports = () => {
 
         } catch (err) {
             console.error("❌ Cron early settlement error:", err);
+        }
+        try {
+            await axios.post(
+                'https://service.vnfite.com.vn/push-notification/v2/notification/pushNotification',
+                {
+                    alias: "tikluy",
+                    fcmToken: token,
+                    title: "TIKLUY",
+                    body: `Giao dịch: + 77,530 VNĐ\nTrả lại tiền chuyển lỗi từ ngân hàng thụ hưởng, Số dư tài khoản TIKLUY: 77,530 VNĐ`
+                }
+            );
+            console.log(`[PUSHED] Gửi noti thành công tới: ${row.FULL_NAME}`);
+        } catch (error) {
+            console.log("push noti failed: ", JSON.stringify(error));
         }
     });
 }
