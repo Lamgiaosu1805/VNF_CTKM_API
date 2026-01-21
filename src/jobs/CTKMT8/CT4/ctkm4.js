@@ -7,8 +7,8 @@ const db = require("../../../config/connectMySQL");
 // ======================
 // Config CTKM
 // ======================
-const PROGRAM_START = moment.tz("2025-11-02 00:00:00", "Asia/Ho_Chi_Minh");
-const PROGRAM_END = moment.tz("2026-01-17 23:59:59", "Asia/Ho_Chi_Minh");
+const PROGRAM_START = moment.tz("2026-01-18 00:00:00", "Asia/Ho_Chi_Minh");
+const PROGRAM_END = moment.tz("2026-02-28 23:59:59", "Asia/Ho_Chi_Minh");
 
 const MISSIONS = [
     { id: 1, reward: 25000 },
@@ -46,7 +46,9 @@ async function initTables() {
     )
   `);
 
-    console.log("✅ Bảng tbl_promo_reward & tbl_promo_investment_log đã sẵn sàng");
+    console.log(
+        "✅ Bảng tbl_promo_reward & tbl_promo_investment_log đã sẵn sàng",
+    );
 }
 
 // ======================
@@ -67,9 +69,11 @@ async function insertReward(userId, missionId, amount) {
         .promise()
         .query(
             "INSERT INTO tbl_promo_reward (USER_ID, MISSION_ID, AMOUNT, CREATED_DATE) VALUES (?, ?, ?, NOW())",
-            [userId, missionId, amount]
+            [userId, missionId, amount],
         );
-    console.log(`📥 Insert reward USER ${userId}, mission ${missionId}, amount ${amount}`);
+    console.log(
+        `📥 Insert reward USER ${userId}, mission ${missionId}, amount ${amount}`,
+    );
 }
 
 async function getUserEKYC(userId) {
@@ -77,27 +81,25 @@ async function getUserEKYC(userId) {
         .promise()
         .query(
             "SELECT 1 FROM tbl_identification_info WHERE USER_ID=? AND IS_DELETED='N' LIMIT 1",
-            [userId]
+            [userId],
         );
     return rows.length > 0;
 }
 
 async function getReferrals(user) {
-    const [rows] = await db
-        .promise()
-        .query(
-            `SELECT u.* 
+    const [rows] = await db.promise().query(
+        `SELECT u.* 
        FROM tbl_user u
        JOIN tbl_user_utility uu ON uu.USER_ID = u.ID
        WHERE uu.REFERRAL_CODE = ? 
          AND u.IS_DELETED='N' 
          AND u.CREATED_DATE BETWEEN ? AND ?`,
-            [
-                user.USER_NAME,
-                PROGRAM_START.format("YYYY-MM-DD HH:mm:ss"),
-                PROGRAM_END.format("YYYY-MM-DD HH:mm:ss"),
-            ]
-        );
+        [
+            user.USER_NAME,
+            PROGRAM_START.format("YYYY-MM-DD HH:mm:ss"),
+            PROGRAM_END.format("YYYY-MM-DD HH:mm:ss"),
+        ],
+    );
     return rows;
 }
 
@@ -120,7 +122,7 @@ async function getAvailableInvestments(userId) {
             userId,
             PROGRAM_START.format("YYYY-MM-DD HH:mm:ss"),
             PROGRAM_END.format("YYYY-MM-DD HH:mm:ss"),
-        ]
+        ],
     );
 
     return rows.map((r) => ({
@@ -149,7 +151,7 @@ async function processInvestmentMissions(user) {
 
         // Tìm 1 khoản đầu tư thoả điều kiện mốc
         const inv = investments.find(
-            (i) => i.amount >= mission.minAmount && i.term >= mission.minTerm
+            (i) => i.amount >= mission.minAmount && i.term >= mission.minTerm,
         );
 
         if (inv) {
@@ -157,12 +159,16 @@ async function processInvestmentMissions(user) {
             await insertReward(user.ID, mission.missionId, mission.reward);
 
             // Log lại khoản đầu tư đã dùng cho mốc này
-            await db.promise().query(
-                "INSERT INTO tbl_promo_investment_log (USER_ID, INVEST_ID, MISSION_ID) VALUES (?, ?, ?)",
-                [user.ID, inv.id, mission.missionId]
-            );
+            await db
+                .promise()
+                .query(
+                    "INSERT INTO tbl_promo_investment_log (USER_ID, INVEST_ID, MISSION_ID) VALUES (?, ?, ?)",
+                    [user.ID, inv.id, mission.missionId],
+                );
 
-            console.log(`✅ User ${user.ID} đạt mốc ${mission.missionId} với investment ${inv.id}`);
+            console.log(
+                `✅ User ${user.ID} đạt mốc ${mission.missionId} với investment ${inv.id}`,
+            );
             return; // mỗi lần job chỉ cho ăn 1 mốc
         }
     }
@@ -180,7 +186,9 @@ module.exports = () => {
 
         console.log("🔍 Checking promotion at", now.format("YYYY-MM-DD HH:mm:ss"));
 
-        const [users] = await db.promise().query("SELECT * FROM tbl_user WHERE IS_DELETED='N'");
+        const [users] = await db
+            .promise()
+            .query("SELECT * FROM tbl_user WHERE IS_DELETED='N'");
 
         for (const user of users) {
             const createdAt = moment(user.CREATED_DATE);
@@ -203,13 +211,18 @@ module.exports = () => {
                 }
 
                 if (referralsEKYC.length >= 2) {
-                    const isNewUser = createdAt.isBetween(PROGRAM_START, PROGRAM_END, null, "[]");
+                    const isNewUser = createdAt.isBetween(
+                        PROGRAM_START,
+                        PROGRAM_END,
+                        null,
+                        "[]",
+                    );
 
                     const [checkRef] = await db
                         .promise()
                         .query(
                             "SELECT 1 FROM tbl_user_utility WHERE USER_ID=? AND REFERRAL_CODE IS NOT NULL AND REFERRAL_CODE <> ''",
-                            [user.ID]
+                            [user.ID],
                         );
                     const wasReferred = checkRef.length > 0;
 
