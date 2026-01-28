@@ -7,7 +7,7 @@ const db = require("../../../config/connectMySQL");
 // ======================
 // Config CTKM
 // ======================
-const PROGRAM_START = moment.tz("2026-01-18 00:00:00", "Asia/Ho_Chi_Minh");
+const PROGRAM_START = moment.tz("2025-09-20 00:00:00", "Asia/Ho_Chi_Minh");
 const PROGRAM_END = moment.tz("2026-02-28 23:59:59", "Asia/Ho_Chi_Minh");
 
 const MISSIONS = [
