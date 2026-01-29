@@ -137,10 +137,10 @@ async function getAvailableInvestments(userId) {
 // ======================
 async function processInvestmentMissions(user) {
     const rewards = [
-        { missionId: 3, minAmount: 500000, minTerm: 1, reward: 30000 },
-        { missionId: 4, minAmount: 1000000, minTerm: 3, reward: 35000 },
-        { missionId: 5, minAmount: 2000000, minTerm: 6, reward: 40000 },
         { missionId: 6, minAmount: 5000000, minTerm: 9, reward: 45000 },
+        { missionId: 5, minAmount: 2000000, minTerm: 6, reward: 40000 },
+        { missionId: 4, minAmount: 1000000, minTerm: 3, reward: 35000 },
+        { missionId: 3, minAmount: 500000, minTerm: 1, reward: 30000 },
     ];
 
     const investments = await getAvailableInvestments(user.ID);
@@ -157,7 +157,6 @@ async function processInvestmentMissions(user) {
         if (inv) {
             // Thêm reward
             await insertReward(user.ID, mission.missionId, mission.reward);
-
             // Log lại khoản đầu tư đã dùng cho mốc này
             await db
                 .promise()
@@ -180,7 +179,7 @@ async function processInvestmentMissions(user) {
 module.exports = () => {
     initTables();
     //Chạy 5p 1 lần
-    cron.schedule("0 */5 * * * *", async () => {
+    cron.schedule("0 */1 * * * *", async () => {
         const now = moment.tz("Asia/Ho_Chi_Minh");
         if (now.isBefore(PROGRAM_START) || now.isAfter(PROGRAM_END)) return;
 
