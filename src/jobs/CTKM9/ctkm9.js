@@ -116,10 +116,10 @@ module.exports = () => {
             "🔍 Checking ctkm NĂM MÃ BÚT PHÁ - NHẬN LỘC KHAI XUÂN",
             now.format("YYYY-MM-DD HH:mm:ss"),
         );
-        if (now.isBefore(PROGRAM_START) || now.isAfter(PROGRAM_END)) {
-            console.log("[CRON] Không nằm trong thời gian diễn ra chương trình.");
-            return;
-        }
+        // if (now.isBefore(PROGRAM_START) || now.isAfter(PROGRAM_END)) {
+        //     console.log("[CRON] Không nằm trong thời gian diễn ra chương trình.");
+        //     return;
+        // }
 
         await createTableIfNotExists();
 
