@@ -20,6 +20,7 @@ module.exports = () => {
 
     //CTKM4 20/09/2025 đến hết ngày 31/10/2025.GIA HẠN => 16/12/2025 => Gia hạn với tên mới => 17/1/2026
     // Gia hạn tiếp từ 17/01/2026 đến hết ngày 28/02/2026
+    //Gia hạn tiếp từ 1/3/2026 => tạm thời hết năm
     require("./CTKMT8/CT4/ctkm4")();
     require("./CTKMT8/CT4/payReward")(); // trả thưởng
 
@@ -37,5 +38,5 @@ module.exports = () => {
     // require('./CTKM8/ctkm8')()
 
     //CTKM8 10/1/2026 => hết 12/2/2026 “NĂM MÃ BÚT PHÁ - NHẬN LỘC KHAI XUÂN”
-    require("./CTKM9/ctkm9")();
+    // require("./CTKM9/ctkm9")();
 };
