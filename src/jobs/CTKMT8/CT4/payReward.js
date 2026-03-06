@@ -96,18 +96,34 @@ async function payRewards() {
             // 🔹 Gửi push notification
             if (token) {
                 try {
-                    await axios.post(
-                        "https://service.vnfite.com.vn/push-notification/v2/notification/pushNotification",
-                        {
-                            alias: "tikluy",
-                            fcmToken: token,
-                            title: "🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀",
-                            body: `Chúc mừng bạn đã nhận được ${formatMoney(
-                                reward.AMOUNT
-                            )} VNĐ vào tài khoản TIKLUY 🎉\nMốc thưởng: ${reward.MISSION_ID}\nCảm ơn bạn đã đồng hành cùng TIKLUY!`,
+                    const resNoti = await axios.post("http://42.113.122.155:1993/notification/specify-notification-to-users", {
+                        headers: {
+                            "Content-Type": "application/json",
+                            transactionId: `ctkm_say_hi_ban_moi_${reward.USER_ID}_${reward.MISSION_ID}_${Date.now()}`,
                         }
-                    );
-                    console.log(`📲 Push noti thành công tới user ${reward.USER_ID}`);
+                    }, {
+                        title: "🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀",
+                        content1: `Chúc mừng bạn đã nhận được ${formatMoney(
+                            reward.AMOUNT
+                        )} VNĐ vào tài khoản TIKLUY 🎉\nMốc thưởng: ${reward.MISSION_ID}\nCảm ơn bạn đã đồng hành cùng TIKLUY!`,
+                        content2: `Chúc mừng bạn đã nhận được ${formatMoney(
+                            reward.AMOUNT
+                        )} VNĐ vào tài khoản TIKLUY 🎉\nMốc thưởng: ${reward.MISSION_ID}\nCảm ơn bạn đã đồng hành cùng TIKLUY!`,
+                        userId: reward.USER_ID,
+                    });
+                    console.log("PUSH_NOTI: ", JSON.stringify(resNoti.data, null, 2));
+                    // await axios.post(
+                    //     "https://service.vnfite.com.vn/push-notification/v2/notification/pushNotification",
+                    //     {
+                    //         alias: "tikluy",
+                    //         fcmToken: token,
+                    //         title: "🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀",
+                    //         body: `Chúc mừng bạn đã nhận được ${formatMoney(
+                    //             reward.AMOUNT
+                    //         )} VNĐ vào tài khoản TIKLUY 🎉\nMốc thưởng: ${reward.MISSION_ID}\nCảm ơn bạn đã đồng hành cùng TIKLUY!`,
+                    //     }
+                    // );
+                    // console.log(`📲 Push noti thành công tới user ${reward.USER_ID}`);
                 } catch (error) {
                     console.log("push noti failed: ", JSON.stringify(error));
                 }
