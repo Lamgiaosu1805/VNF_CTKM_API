@@ -96,7 +96,7 @@ async function payRewards() {
             // 🔹 Gửi push notification
             if (token) {
                 try {
-                    const resNoti = await axios.post("http://42.113.122.155:1993/notification/specify-notification-to-users", {
+                    const resNoti = await axios.post("http://42.113.122.155:1993/notification/specify-notification-to-user", {
                         headers: {
                             "Content-Type": "application/json",
                             transactionId: `ctkm_say_hi_ban_moi_${reward.USER_ID}_${reward.MISSION_ID}_${Date.now()}`,
@@ -110,6 +110,8 @@ async function payRewards() {
                             reward.AMOUNT
                         )} VNĐ vào tài khoản TIKLUY 🎉\nMốc thưởng: ${reward.MISSION_ID}\nCảm ơn bạn đã đồng hành cùng TIKLUY!`,
                         userId: reward.USER_ID,
+                        userName: process.env.USER_CMS,
+                        passWord: process.env.PASS_CMS
                     });
                     console.log("PUSH_NOTI: ", JSON.stringify(resNoti.data, null, 2));
                     // await axios.post(
