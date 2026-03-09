@@ -127,7 +127,7 @@ async function payRewards() {
                     // );
                     // console.log(`📲 Push noti thành công tới user ${reward.USER_ID}`);
                 } catch (error) {
-                    console.log("push noti failed: ", JSON.stringify(error));
+                    console.log("push noti failed: ", JSON.stringify(error, null, 2));
                 }
             }
 
