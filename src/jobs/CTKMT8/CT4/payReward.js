@@ -97,11 +97,6 @@ async function payRewards() {
             if (token) {
                 try {
                     const resNoti = await axios.post("http://42.113.122.155:1993/notification/specify-notification-to-user", {
-                        headers: {
-                            "Content-Type": "application/json",
-                            transactionId: `ctkm_say_hi_ban_moi_${reward.USER_ID}_${reward.MISSION_ID}_${Date.now()}`,
-                        }
-                    }, {
                         title: "🚀 SAY HI BẠN MỚI – QUÀ TẶNG NHÂN ĐÔI🚀",
                         content1: `Chúc mừng bạn đã nhận được ${formatMoney(
                             reward.AMOUNT
@@ -112,6 +107,10 @@ async function payRewards() {
                         userId: reward.USER_ID,
                         userName: process.env.USER_CMS,
                         passWord: process.env.PASS_CMS
+                    }, {
+                        headers: {
+                            transactionId: `ctkm_say_hi_ban_moi_${reward.USER_ID}_${reward.MISSION_ID}_${Date.now()}`,
+                        }
                     });
                     console.log("PUSH_NOTI: ", JSON.stringify(resNoti.data, null, 2));
                     // await axios.post(
