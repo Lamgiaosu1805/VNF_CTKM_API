@@ -179,7 +179,7 @@ async function processInvestmentMissions(user) {
 module.exports = () => {
     initTables();
     //Chạy 5p 1 lần
-    cron.schedule("0 */1 * * * *", async () => {
+    cron.schedule("0 */10 * * * *", async () => {
         const now = moment.tz("Asia/Ho_Chi_Minh");
         if (now.isBefore(PROGRAM_START) || now.isAfter(PROGRAM_END)) return;
 
