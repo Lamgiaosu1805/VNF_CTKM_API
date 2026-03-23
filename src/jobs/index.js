@@ -22,7 +22,7 @@ module.exports = () => {
     // Gia hạn tiếp từ 17/01/2026 đến hết ngày 28/02/2026
     //Gia hạn tiếp từ 1/3/2026 => tạm thời hết năm
     require("./CTKMT8/CT4/ctkm4")();
-    require("./CTKMT8/CT4/payReward")(); // trả thưởng
+    // require("./CTKMT8/CT4/payReward")(); // trả thưởng
 
     //CTKM5 15/10 => hết 22/10 TIKLUY cùng Nàng – Gửi ngàn yêu thương
     // require('./CTKMT8/CT5/ctkm5')()
